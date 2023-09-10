@@ -31,22 +31,46 @@ This project is an implementation of a web service API based on a mini project a
 
 Here are the steps to install and run this project:
 
-1. Clone this repository
+1. Clone this repository with
 
-   HTTPS:
+    HTTPS:
     ```bash
-   git clone https://github.com/azzmnrwebdev/covid19-expressjs.git
-   ```
+    git clone https://github.com/azzmnrwebdev/covid19-expressjs.git
+    ```
 
-   SSH:
+    SSH:
     ```bash
-   git@github.com:azzmnrwebdev/covid19-expressjs.git
-   ```
-2. Run `npm install` to install all dependencies and packages
-3. Copy the `.env.example` file and paste it, then change the name of the copied file to `.env`. Set the environment configuration by editing the `.env` file.
-4. Create a database that matches the database name in the environment configuration file.
-5. Run this command `sequelize db:migrate` for the migration process.
-6. Run `npm start` and enjoy!!
+    git@github.com:azzmnrwebdev/covid19-expressjs.git
+    ```
+
+2. Run `npm install` to install all dependencies and packages.
+3. Copy the `.env.example` file and paste the copied file. Rename the pasted file to `.env`.
+4. Edit the required environment configuration in the `.env` file.
+
+    Example:
+    ```bash
+    # Application Configuration
+    APP_PORT=8000
+
+    # Database Configuration
+    DB_HOST=localhost
+    DB_PORT=3306
+    DB_USERNAME=root
+    DB_PASSWORD=
+    DB_DATABASE=covid19-express
+    DB_CONNECTION=mysql
+    ```
+
+5. Put a free value in the `TOKEN_KEY` environment variable in the `.env` file as the secret key to sign the token.
+
+   Example:
+    ```bash
+    TOKEN_KEY=secret123
+    ```
+
+6. Create a database that matches the database name in the environment configuration file.
+7. Run this command `sequelize db:migrate` for the migration process.
+8. Run `npm start` and enjoy!!
 
 ## Use
 
