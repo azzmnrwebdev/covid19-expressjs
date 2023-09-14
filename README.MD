@@ -50,7 +50,7 @@ Here are the steps to install and run this project:
     Example:
     ```bash
     # Application Configuration
-    APP_PORT=8000
+    APP_PORT=5000
 
     # Database Configuration
     DB_HOST=localhost
@@ -63,7 +63,7 @@ Here are the steps to install and run this project:
 
 5. Put a free value in the `TOKEN_KEY` environment variable in the `.env` file as the secret key to sign the token.
 
-   Example:
+    Example:
     ```bash
     TOKEN_KEY=secret123
     ```
@@ -73,6 +73,46 @@ Here are the steps to install and run this project:
 8. Run `npm start` and enjoy!!
 
 ## Use
+
+1.  Register
+
+    Request:
+    ```http
+    POST http://localhost:5000/api/user/register
+
+    Body raw (json)
+
+    {
+        "fullName" : "John Doe",
+        "userName" : "johndoe",
+        "email"    : "johndoe@gmail.com",
+        "password" : "johndoe123"
+    }
+    ```
+
+2.  Login
+
+    Request:
+    ```http
+    POST http://localhost:5000/api/user/login
+
+    Body raw (json)
+
+    {
+        "email"    : "johndoe@gmail.com",
+        "password" : "johndoe123"
+    }
+    ```
+
+3.  Get All Patient
+
+    Request:
+    ```http
+    GET http://localhost:5000/api/patients
+    ```
+
+4. 
+
 
 ## Use of Postman
 
