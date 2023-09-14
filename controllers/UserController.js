@@ -37,22 +37,22 @@ class UserController {
         password: encryptedPassword,
       });
 
-      // membuat token saat register
+      // create a token when registering
       const token = jwt.sign({ id: user.id, email }, process.env.TOKEN_KEY, {
         expiresIn: "2h",
       });
 
-      // menyimpan token
+      // store tokens
       user.token = token;
 
-      // response jika akun berhasil dibuat
+      // response if the account is successfully created
       return res.status(201).json({
         success: true,
-        message: "Akun telah berhasil dibuat!",
+        message: "Account has been successfully created!",
         data: user,
       });
     } catch (err) {
-      // handling jika server error
+      // handling if the server errors
       return Response.errors(res, err);
     }
   }
@@ -73,29 +73,29 @@ class UserController {
       const user = await models.User.findOne({ where: { email } });
 
       if (user && (await bcrypt.compare(password, user.password))) {
-        // membuat token saat login
+        // create a token when logging in
         const token = jwt.sign({ id: user.id, email }, process.env.TOKEN_KEY, {
           expiresIn: "2h",
         });
 
-        // menyimpan token
+        // store tokens
         user.token = token;
 
-        // response berhasil login
+        // response login successful
         return res.status(200).json({
           success: true,
-          message: "Login Successfully",
+          message: "Login successfully",
           data: user,
         });
       }
 
-      // response gagal login
+      // response login failed
       return res.status(400).json({
         success: false,
         message: "Invalid Credentials",
       });
     } catch (err) {
-      // handling jika server error
+      // handling if the server errors
       return Response.errors(res, err);
     }
   }

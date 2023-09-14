@@ -1,6 +1,4 @@
-// TODO 2: SETUP ROUTING (ROUTER)
-
-// import express, router dan route patient
+// import express, router and route patient
 const express = require("express");
 const router = express.Router();
 const patient = require("./patient");

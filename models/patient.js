@@ -1,6 +1,5 @@
-// TODO 5: SETUP MODEL
-
 "use strict";
+
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Patient extends Model {

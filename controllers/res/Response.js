@@ -1,5 +1,5 @@
 class Response {
-  // error server dan isi pesan error nya
+  // server and message error
   errors = (res, err) => {
     res.status(500).json({
       status: 500,
@@ -8,29 +8,28 @@ class Response {
     });
   };
 
-  // response untuk yang di req tidak ada data atau not found dan tidak ada total
+  // The response for the request is that there is no data or not found and there is no total
   noDataAndTotal = (res, code, boolean, pesan, data) => {
     res.status(code).json({
-      // code => '200, 201, 404, dll'
-      success: boolean, // bisa true or false
-      message: pesan, // isi pesan nya apa
-      data: data, // menampilkan data nya
+      success: boolean, // true or false
+      message: pesan, // message
+      data: data, // show data
     });
   };
 
-  // response untuk yang ada total
+  // response to existing total
   adaTotal = (res, boolean, pesan, total, data) => {
     res.status(200).json({
-      success: boolean, // bisa true or false
-      message: pesan, // isi pesan nya apa
-      total: total, // menampilkan jumlah keseluruhan data
-      data: data, // menampilkan data nya
+      success: boolean, // true or false
+      message: pesan, // message
+      total: total, // total amount of data
+      data: data, // show data
     });
   };
 }
 
-// membuat object Response
+// create response objects
 const obj = new Response();
 
-// export object Response
+// export object response
 module.exports = obj;

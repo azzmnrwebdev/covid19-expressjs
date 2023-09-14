@@ -1,12 +1,12 @@
 // import express-validator
 const { check, validationResult } = require("express-validator");
 
-// buat validasi
+// make validation
 const validations = [
-  // untuk kolom name
+  // name
   check("name").notEmpty().withMessage("Name is required").trim().escape(),
 
-  // untuk kolom phone
+  // phone
   check("phone")
     .notEmpty()
     .withMessage("Phone is required")
@@ -15,17 +15,17 @@ const validations = [
     .trim()
     .escape(),
 
-  // untuk kolom address
+  // address
   check("address")
     .notEmpty()
     .withMessage("Address is required")
     .trim()
     .escape(),
 
-  // untuk kolom status
+  // status
   check("status").notEmpty().withMessage("Status is required").trim().escape(),
 
-  // untuk kolom tanggal masuk
+  // date of entry
   check("in_date_at")
     .notEmpty()
     .withMessage("In Date At is required")
@@ -34,8 +34,9 @@ const validations = [
 ];
 
 const validate = [
-  // tangkap variable validations
+  // call variable validations
   validations,
+
   // responses
   (req, res, next) => {
     const results = validationResult(req);
@@ -49,6 +50,7 @@ const validate = [
         error: results.array(),
       });
     }
+
     next();
   },
 ];

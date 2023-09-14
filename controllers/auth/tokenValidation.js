@@ -3,13 +3,13 @@ const config = process.env;
 
 const verifyToken = (req, res, next) => {
   const token =
-    req.body.token || req.query.token || req.headers["x-access-token"];
+    req.body.token || req.query.token || req.headers["X-Access-Token"];
 
   if (!token) {
     return res.status(403).json({
       status: 403,
       success: false,
-      message: "Token diperlukan untuk otentikasi",
+      message: "Token is required for authentication",
     });
   }
 
@@ -20,7 +20,7 @@ const verifyToken = (req, res, next) => {
     return res.status(401).json({
       status: 401,
       success: false,
-      message: "Token Tidak Valid",
+      message: "Invalid token",
     });
   }
   return next();

@@ -1,51 +1,49 @@
-// TODO 4: SETUP CONTROLLER
-
-// import models dan response
+// import models and response
 const models = require("../models");
 const Response = require("./res/Response");
 
 // create class
 class PatientController {
   /**
-   * method index untuk menampilkan keseluruhan data
-   * yang ada di models dan db dengan table patients
-   * @param {err} res = untuk menghandle jika server nya error, status code 500
-   * @param {findAll} model = untuk mengakses semua data
-   * @returns mengembalikan response json status code 200
+   * index method to display all the data
+   * which is in the models and db with the patients table
+   * @param {err} res = to handle if the server has an error, status code 500
+   * @param {findAll} model = to access all data
+   * @returns returns a json response status code 200
    */
   async index(req, res) {
     try {
-      // memanggil data yang ada di models, lalu disimpan ke variable patients
+      // calls the data in the model, then saves it to the patient variable
       const patients = await models.Patient.findAll({
         order: [["id", "DESC"]],
       });
 
-      // menghitung jumlah total data patients
+      // calculate the total number of patient data
       const total = patients.length;
 
-      // mengembalikan response json jika data nya ada, status code 200 OK
-      // else, mengembalikan response json jika data nya tidak ada, status code 200 OK
+      // returns a json response if the data exists, status code 200 OK
+      // else, returns a json response if the data does not exist, status code 200 OK
       total
         ? Response.adaTotal(res, true, "Get All Resource", total, patients)
         : Response.noDataAndTotal(res, 200, false, "Data is empty");
     } catch (err) {
-      // handling jika server error
+      // handling if the server errors
       return Response.errors(res, err);
     }
   }
 
   /**
-   * method store untuk membuat data
-   * @param {create} method = pakai method create untuk membuat data
-   * @param {err} res = untuk menghandle jika server nya error, status code 500
-   * @returns mengembalikan response json jika data nya berhasil dibuat, status code 200 OK
+   * store method to create data
+   * @param {create} method = use the create method to create data
+   * @param {err} res = to handle if the server has an error, status code 500
+   * @returns returns a json response if the data is successfully created, status code 200 OK
    */
   async store(req, res) {
     try {
-      // request colum yang ada di table patients, jika berhasil dibuat simpan ke variable patients
+      // request a column in the patients table, if created successfully, save it to the patients variable
       const patients = await models.Patient.create(req.body);
 
-      // jika berhasil, mengembalikan response json, status code 200 OK
+      // if successful, returns a json response, status code 200 OK
       return Response.noDataAndTotal(
         res,
         201,
@@ -54,28 +52,28 @@ class PatientController {
         patients
       );
     } catch (err) {
-      // handling jika server error
+      // handling if the server errors
       return Response.errors(res, err);
     }
   }
 
   /**
-   * method show untuk menampilkan 1 data saja
-   * @param {id} req = mencari id jika id nya ada dan jika tidak ada, disimpan ke variable id
-   * @param {err} res = untuk menghandle jika server nya error, status code 500
-   * @param {findOne} model = untuk menangkap id yang ada di database
+   * show method to display only 1 data
+   * @param {id} req = looks for the ID if the ID exists and if it doesn't exist, it is saved to the id variable
+   * @param {err} res = to handle if the server has an error, status code 500
+   * @param {findOne} model = to capture the id in the database
    */
   async show(req, res) {
     try {
       // user request id
       const { id } = req.params;
 
-      // mengambil 1 data dari model dengan method findOne sesuai id nya
-      // dan disimpan ke variabel patients
+      // take 1 data from the model with the findOne method according to its ID
+      // and saved to the patient variable
       const patients = await models.Patient.findOne({ where: { id } });
 
-      // mengembalikan response json jika data nya sesuai id, status code 200 OK
-      // else, mengembalikan response json jika id tidak sesuai di database, status code 404 NOT FOUND
+      // returns a json response if the data matches the ID, status code 200 OK
+      // else, returns a json response if the ID does not match in the database, status code 404 NOT FOUND
       patients
         ? Response.noDataAndTotal(
             res,
@@ -86,30 +84,30 @@ class PatientController {
           )
         : Response.noDataAndTotal(res, 404, false, "Resource not found");
     } catch (err) {
-      // handling jika server error
+      // handling if the server errors
       return Response.errors(res, err);
     }
   }
 
   /**
-   * method update untuk mengupdate data
-   * @param {findOne} model = untuk menangkap id yang ada di database
-   * @param {update} method = jika ingin mengupdate data, pakai method update, update dari data lama menjadi data baru
-   * @param {id} req = mencari id jika id nya ada dan jika tidak ada, disimpan ke variable id
-   * @param {err} res = untuk menghandle jika server nya error, status code 500
+   * update method to update data
+   * @param {findOne} model = to capture the id in the database
+   * @param {update} method = if you want to update the data, in the update method, update the old data to new data
+   * @param {id} req = looks for the ID if the ID exists and if it doesn't exist, it is saved to the id variable
+   * @param {err} res = to handle if the server has an error, status code 500
    */
   async update(req, res) {
     try {
       // user request id
       const { id } = req.params;
 
-      // cari id patients yang ingin di update
+      // look for the patient ID you want to update
       const patients = await models.Patient.findOne({ where: { id } });
 
-      // buat kondisi
-      // melakukan update data
-      // mengembalikan response json jika data berhasil diupdate sesuai id di database, status code 200 OK
-      // else, mengembalikan response json jika id tidak sesuai di database, status code 404 NOT FOUND
+      // create conditions
+      // update the data
+      // returns a json response if the data is successfully updated according to the ID in the database, status code 200 OK
+      // else, returns a json response if the ID does not match in the database, status code 404 NOT FOUND
       patients
         ? (await patients.update(req.body)) &
           Response.noDataAndTotal(
@@ -121,17 +119,17 @@ class PatientController {
           )
         : Response.noDataAndTotal(res, 404, false, "Resource not found");
     } catch (err) {
-      // handling jika server error
+      // handling if the server errors
       return Response.errors(res, err);
     }
   }
 
   /**
-   * method destroy untuk menghapus data
-   * @param {findOne} model = untuk menangkap id yang ada di database
-   * @param {destroy} method = untuk menghapus data pakai method destroy
-   * @param {id} req = mencari id jika id nya ada dan jika tidak ada, disimpan ke variable id
-   * @param {err} res = untuk menghandle jika server nya error, status code 500
+   * destroy method to delete data
+   * @param {findOne} model = to capture the id in the database
+   * @param {destroy} method = to delete data, use the destroy method
+   * @param {id} req = looks for the ID if the ID exists and if it doesn't exist, it is saved to the id variable
+   * @param {err} res = to handle if the server has an error, status code 500
    */
   async destroy(req, res) {
     try {
@@ -141,10 +139,10 @@ class PatientController {
       // cari id patients yang ingin di delete
       const patients = await models.Patient.findOne({ where: { id } });
 
-      // buat kondisi
-      // melakukan delete data
-      // mengembalikan response json jika data berhasil dihapus sesuai id di db, status code 200 OK
-      // else, mengembalikan response json jika id tidak sesuai di database, status code 404 NOT FOUND
+      // create conditions
+      // delete data
+      // returns a json response if the data is successfully deleted according to the ID in the db, status code 200 OK
+      // else, returns a json response if the ID does not match in the database, status code 404 NOT FOUND
       patients
         ? (await patients.destroy()) &
           Response.noDataAndTotal(
@@ -155,16 +153,16 @@ class PatientController {
           )
         : Response.noDataAndTotal(res, 404, false, "Resource not found");
     } catch (err) {
-      // handling jika server error
+      // handling if the server errors
       return Response.errors(res, err);
     }
   }
 
   /**
-   * method search, untuk mencari data patient berdasarkan nama nya
-   * @param {name} req = request name patients di route parameter
-   * @param {err} res = untuk menghandle jika server nya error, status code 500
-   * @param {Sequelize, Op} package = import package sequelize dan menggunakan Op untuk where like
+   * search method, to search for patient data by name
+   * @param {name} req = request patient name in route parameters
+   * @param {err} res = to handle if the server has an error, status code 500
+   * @param {Sequelize, Op} package = import package sequelize and use Op for where like
    */
   async search(req, res) {
     // import package sequelize
@@ -172,31 +170,31 @@ class PatientController {
     const Op = Sequelize.Op;
 
     try {
-      const { name } = req.params; // request name patient di route parameter
+      const { name } = req.params; // request patient name in route parameters
 
       const patients = await models.Patient.findAll({
         where: { name: { [Op.like]: "%" + name + "%" } },
-      }); // mencari data patient berdasarkan nama yang di cari
+      }); // search for patient data based on the name you are looking for
 
-      // menghitung jumlah total data patients
+      // calculate the total number of patient data
       const total = patients.length;
 
-      // jika data nya ada, maka tampilkan response adaTotal
-      // else, jika data nya tidak ada, maka tampilkan response noDataAndTotal
+      // if the data exists, then display the response adaTotal
+      // else, if the data does not exist, then display the response noDataAndTotal
       total
         ? Response.adaTotal(res, true, "Get searched resource", total, patients)
         : Response.noDataAndTotal(res, 404, false, "Resource not found");
     } catch (err) {
-      // handling jika server error
+      // handling if the server errors
       return Response.errors(res, err);
     }
   }
 
   /**
-   * method positive, untuk menampilkan data pasien dengan status positive
-   * @param {findAll} model = untuk mengakses semua data
-   * @param {positive} status = mengambil data berdasarkan status 'positive'
-   * @param {err} res = untuk menghandle jika server nya error, status code 500
+   * positive method, to display patient data with positive status
+   * @param {findAll} model = to access all data
+   * @param {positive} status = retrieve data based on 'positive' status
+   * @param {err} res = to handle if the server has an error, status code 500
    */
   async positive(req, res) {
     try {
@@ -205,25 +203,25 @@ class PatientController {
         order: [["id", "DESC"]],
       });
 
-      // menghitung jumlah total data patients
+      // calculate the total number of patient data
       const total = patients.length;
 
-      // jika data nya ada, maka tampilkan response adaTotal
-      // else, jika data nya tidak ada, maka tampilkan response noDataAndTotal
+      // if the data exists, then display the response adaTotal
+      // else, if the data does not exist, then display the response noDataAndTotal
       total
         ? Response.adaTotal(res, true, "Get positive resource", total, patients)
         : Response.noDataAndTotal(res, 404, false, "Resource not found");
     } catch (err) {
-      // handling jika server error
+      // handling if the server errors
       return Response.errors(res, err);
     }
   }
 
   /**
-   * method recovered, untuk menampilkan data pasien dengan status recovered
-   * @param {findAll} model = untuk mengakses semua data
-   * @param {recovered} status = mengambil data berdasarkan status 'recovered'
-   * @param {err} res = untuk menghandle jika server nya error, status code 500
+   * recovered method, to display patient data with recovered status
+   * @param {findAll} model = to access all data
+   * @param {recovered} status = retrieve data based on 'recovered' status
+   * @param {err} res = to handle if the server has an error, status code 500
    */
   async recovered(req, res) {
     try {
@@ -232,11 +230,11 @@ class PatientController {
         order: [["id", "DESC"]],
       });
 
-      // menghitung jumlah total data patients
+      // calculate the total number of patient data
       const total = patients.length;
 
-      // jika data nya ada, maka tampilkan response adaTotal
-      // else, jika data nya tidak ada, maka tampilkan response noDataAndTotal
+      // if the data exists, then display the response adaTotal
+      // else, if the data does not exist, then display the response noDataAndTotal
       total
         ? Response.adaTotal(
             res,
@@ -247,16 +245,16 @@ class PatientController {
           )
         : Response.noDataAndTotal(res, 404, false, "Resource not found");
     } catch (err) {
-      // handling jika server error
+      // handling if the server errors
       return Response.errors(res, err);
     }
   }
 
   /**
-   * method dead, untuk menampilkan data pasien dengan status dead
-   * @param {findAll} model = untuk mengakses semua data
-   * @param {dead} status = mengambil data berdasarkan status 'dead'
-   * @param {err} res = untuk menghandle jika server nya error, status code 500
+   * dead method, to display patient data with dead status
+   * @param {findAll} model = to access all data
+   * @param {dead} status = retrieve data based on 'dead' status
+   * @param {err} res = to handle if the server has an error, status code 500
    */
   async dead(req, res) {
     try {
@@ -265,22 +263,22 @@ class PatientController {
         order: [["id", "DESC"]],
       });
 
-      // menghitung jumlah total data patients
+      // calculate the total number of patient data
       const total = patients.length;
 
-      // jika data nya ada, maka tampilkan response adaTotal
-      // else, jika data nya tidak ada, maka tampilkan response noDataAndTotal
+      // if the data exists, then display the response adaTotal
+      // else, if the data does not exist, then display the response noDataAndTotal
       total
         ? Response.adaTotal(res, true, "Get dead resource", total, patients)
         : Response.noDataAndTotal(res, 404, false, "Resource not found");
     } catch (err) {
-      // handling jika server error
+      // handling if the server errors
       return Response.errors(res, err);
     }
   }
 }
 
-// membuat object PatientController
+// create a PatientController object
 const Patient = new PatientController();
 
 // export object PatientController

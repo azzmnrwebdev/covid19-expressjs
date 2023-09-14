@@ -11,12 +11,12 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const routes = require("./routes/api");
 
-// Membuat object express
+// create express objects
 const app = express();
 
 app.use(favicon(path.join(__dirname, "public", "logo.ico")));
 
-// Menggunakan middleware
+// using middleware
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -24,11 +24,11 @@ app.use(
   })
 );
 
-// Menggunakan routing (routes)
+// using routing (routes)
 app.use(routes);
 
-// mendefinisikan port => http://localhost:8000
-const port = process.env.PORT_APP || 8000;
+// define port => http://localhost:5000
+const port = process.env.PORT_APP || 5000;
 app.listen(port, () => {
-  console.log("[Server] running at http://localhost/8000");
+  console.log("[Server] running at http://localhost/5000");
 });

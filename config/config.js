@@ -1,6 +1,4 @@
-// TODO 3: SETUP CONFIG DATABASE
-
-// import dotenv dan jalankan method config
+// import dotenv and run the config method
 require("dotenv").config();
 
 // destructing object process.env
