@@ -80,7 +80,7 @@ Here are the steps to install and run this project:
     ```http
     POST http://localhost:5000/api/user/register
 
-    Body raw (json)
+    Body:
 
     {
         "fullName" : "John Doe",
@@ -96,7 +96,7 @@ Here are the steps to install and run this project:
     ```http
     POST http://localhost:5000/api/user/login
 
-    Body raw (json)
+    Body:
 
     {
         "email"    : "johndoe@gmail.com",
@@ -111,8 +111,80 @@ Here are the steps to install and run this project:
     GET http://localhost:5000/api/patients
     ```
 
-4. 
+4. Create Patient
 
+    Headers:
+    | Key | Value | Description |
+    |-----|-------|-------------|
+    | Accept | application/json |  |
+    | X-Access-Token | token_login |  |
+
+    Request:
+    ```http
+    POST http://localhost:5000/api/patients
+
+    Body:
+
+    {
+        "name" : "Fajar Kurniawan",
+        "phone" : "0812345678953",
+        "address" : "Jakarta Timur",
+        "status" : "dead",
+        "in_date_at" : "2023-04-10",
+        "out_date_at": "2023-06-25"
+    }
+    ```
+    NB: Patient status can be filled with positive values, dead, and recovered. If the patient status is positive then the `out_date_at` key in the JSON data does not need to be filled in.
+
+5. Detail Patient
+
+    Request:
+    ```http
+    GET http://localhost:5000/api/patients/{id}
+    ```
+
+6. Update Patient
+
+7. Get Patient Positive
+
+    Request:
+    ```http
+    GET http://localhost:5000/api/patients/status/positive
+    ```
+
+8. Get Patient Dead
+
+    Request:
+    ```http
+    GET http://localhost:5000/api/patients/status/dead
+    ```
+
+9.  Get Patient Recovered
+
+    Request:
+    ```http
+    GET http://localhost:5000/api/patients/status/recovered
+    ```
+
+11. Get Patient By Name
+
+    Request:
+    ```http
+    GET http://localhost:5000/api/patients/search/{name}
+    ```
+
+12. Delete Patient
+
+    Headers:
+    | Key | Value | Description |
+    |-----|-------|-------------|
+    | Accept | application/json |  |
+    | X-Access-Token | token_login |  |
+
+    Request:
+    ```http
+    DELETE http://localhost:5000/api/patients/{id}
+    ```
 
 ## Use of Postman
 
