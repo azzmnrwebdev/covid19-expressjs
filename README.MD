@@ -117,7 +117,7 @@ Here are the steps to install and run this project:
     | Key | Value | Description |
     |-----|-------|-------------|
     | Accept | application/json |  |
-    | X-Access-Token | token_login |  |
+    | X-Access-Token | `token_login` |  |
 
     Request:
     ```http
@@ -129,9 +129,8 @@ Here are the steps to install and run this project:
         "name" : "Fajar Kurniawan",
         "phone" : "0812345678953",
         "address" : "Jakarta Timur",
-        "status" : "dead",
-        "in_date_at" : "2023-04-10",
-        "out_date_at": "2023-06-25"
+        "status" : "positive",
+        "in_date_at" : "2023-04-10"
     }
     ```
     NB: Patient status can be filled with positive values, dead, and recovered. If the patient status is positive then the `out_date_at` key in the JSON data does not need to be filled in.
@@ -144,6 +143,24 @@ Here are the steps to install and run this project:
     ```
 
 6. Update Patient
+
+    Headers:
+    | Key | Value | Description |
+    |-----|-------|-------------|
+    | Accept | application/json |  |
+    | X-Access-Token | `token_login` |  |
+
+    Request:
+    ```http
+    PUT http://localhost:5000/api/patients/{id}
+
+    Body:
+
+    {
+        "status" : "recovered",
+        "out_date_at": "2023-06-25"
+    }
+    ```
 
 7. Get Patient Positive
 
@@ -159,7 +176,7 @@ Here are the steps to install and run this project:
     GET http://localhost:5000/api/patients/status/dead
     ```
 
-9.  Get Patient Recovered
+10. Get Patient Recovered
 
     Request:
     ```http
@@ -179,7 +196,7 @@ Here are the steps to install and run this project:
     | Key | Value | Description |
     |-----|-------|-------------|
     | Accept | application/json |  |
-    | X-Access-Token | token_login |  |
+    | X-Access-Token | `token_login` |  |
 
     Request:
     ```http
