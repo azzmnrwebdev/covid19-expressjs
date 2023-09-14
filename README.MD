@@ -15,7 +15,7 @@ This project is an implementation of a web service API based on a mini project a
 - Data search feature for recovered patients
 - Data search feature based on patient name keywords
 
-## Tools yang digunakan
+## Tools Used
 
 - ExpressJS
 - Dotenv
