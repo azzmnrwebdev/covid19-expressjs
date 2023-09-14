@@ -72,7 +72,7 @@ Here are the steps to install and run this project:
 7. Run this command `sequelize db:migrate` for the migration process.
 8. Run `npm start` and enjoy!!
 
-## Use
+## API Usage
 
 1.  Register
 
@@ -202,8 +202,6 @@ Here are the steps to install and run this project:
     ```http
     DELETE http://localhost:5000/api/patients/{id}
     ```
-
-## Use of Postman
 
 ## Documentation Postman
 
