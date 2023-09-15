@@ -40,7 +40,7 @@ Here are the steps to install and run this project:
 
     SSH:
     ```bash
-    git@github.com:azzmnrwebdev/covid19-expressjs.git
+    git clone git@github.com:azzmnrwebdev/covid19-expressjs.git
     ```
 
 2. Run `npm install` to install all dependencies and packages.
@@ -205,4 +205,4 @@ Here are the steps to install and run this project:
 
 ## Documentation Postman
 
-https://documenter.getpostman.com/view/29602079/2s9YC1WEdL
+[Documentation Postman](https://documenter.getpostman.com/view/29602079/2s9YC1WEdL)
